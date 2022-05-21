@@ -8,10 +8,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
       title: {
         allowNull: false,
         type: Sequelize.STRING
@@ -23,18 +19,15 @@ module.exports = {
       userId: {
         allowNull: false,
         type: Sequelize.STRING,
-        foreignKey: true,
-        references: {
-          model: 'Users',
-          key: 'id',
-        }      
+        // references: {
+        //   model: 'Users',
+        //   key: 'id',
+        // }      
       },
-      createdAt: {
-        allowNull: false,
+      published: {
         type: Sequelize.DATE
       },
-      updatedAt: {
-        allowNull: false,
+      updated: {
         type: Sequelize.DATE
       }
     });
