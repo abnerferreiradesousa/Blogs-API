@@ -27,7 +27,7 @@ app.post(
   userController.create,
 );
 
-app.use((err, req, res, _next) => {
+app.use((err, _req, res, _next) => {
   res
     .status(err.status)
     .json({ message: err.message });
