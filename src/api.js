@@ -27,6 +27,12 @@ app.post(
   userController.create,
 );
 
+app.use((err, req, res, _next) => {
+  res
+    .status(err.status)
+    .json({ message: err.message });
+});
+
 // ...
 
 // É importante exportar a constante `app`,
