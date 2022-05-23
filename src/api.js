@@ -23,6 +23,12 @@ app.get(
   blogPostController.getById,
 );
 
+app.get(
+  '/post',
+  authToken,
+  blogPostController.getAll,
+);
+
 app.post(
   '/post',
   authToken,

@@ -3,6 +3,15 @@ const userService = require('../services/userService');
 const postCategoriesService = require('../services/postCategoriesService');
 const categoryService = require('../services/categoryService');
 
+const getAll = async (req, res, next) => {
+  try {
+    const blogPosts = await blogPostService.getAll();
+    return res.status(200).json(blogPosts);
+  } catch (error) {
+    next(error);
+  }
+};
+
 const getById = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -26,7 +35,7 @@ const create = async (req, res, next) => {
     const { id: postId } = createdPost;
     const created = categoryIds
       .map((categoryId) => postCategoriesService.create(postId, categoryId));
-    const result = await Promise.all(created);
+    await Promise.all(created);
     return res.status(201).json(createdPost);
     }
   } catch (error) {
@@ -37,4 +46,5 @@ const create = async (req, res, next) => {
 module.exports = {
   create,
   getById,
+  getAll,
 };
