@@ -34,11 +34,13 @@ const getAll = async (req, res, next) => {
   }
 };
 
-const getById = (req, res, next) => {
+const getById = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const user = userService.getById(id);
-    return res.status(200).json(user);
+    const user = await userService.getById(id);
+    return res
+      .status(200)
+      .json(user);
   } catch (error) {
     next(error);
   }

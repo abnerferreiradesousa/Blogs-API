@@ -8,8 +8,7 @@ const authToken = (req, res, next) => {
         .status(401)
         .json({ message: 'Token not found' });
     }
-    const decode = jwt.verify(authorization, process.env.JWT_SECRET);
-    console.log(decode);
+    jwt.verify(authorization, process.env.JWT_SECRET);
     next();
   } catch (error) {
     next({ status: 401, message: 'Expired or invalid token' });    
