@@ -2,10 +2,14 @@
 
 module.exports = (sequelize, DataTypes) => {
   const BlogPost = sequelize.define('BlogPost', {
-    id: {
-      type: DataTypes.INTEGER, 
-      primaryKey: true
-    },
+    // se eu declarar  a propriedade 
+    // id eu tenho que eu tenho que pasasr todos os seus atributos
+    
+    // id: {
+    //   type: DataTypes.INTEGER, 
+    //   primaryKey: true,
+    //   autoIncrement: true
+    // },
     title: {
       type: DataTypes.STRING
     },
