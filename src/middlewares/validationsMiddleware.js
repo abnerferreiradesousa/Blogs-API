@@ -48,9 +48,26 @@ const validName = (req, res, next) => {
   }
   next();
 };
+
+const validBlogPost = (req, res, next) => {
+  const { title, content, categoryIds } = req.body;
+  if (!title || !content) {
+    return res
+      .status(400)
+      .json({ message: 'Some required fields are missing' });
+  }
+  if (!categoryIds || !categoryIds.length) {
+    return res
+      .status(400)
+      .json({ message: '"categoryIds" not found' });
+  }
+  next();
+};
+
 module.exports = {
   validDisplayName,
   validPassword,
+  validBlogPost,
   validEmail,
   validName,
 };

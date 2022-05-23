@@ -1,8 +1,10 @@
 const express = require('express');
 const userController = require('./controllers/userController');
 const categoryController = require('./controllers/categoryController');
+const blogPostController = require('./controllers/blogPostController');
 const { 
-  validDisplayName, 
+  validDisplayName,
+  validBlogPost,
   validPassword, 
   validEmail,
   validName,
@@ -14,6 +16,19 @@ const authToken = require('./middlewares/authTokenMiddleware');
 const app = express();
 
 app.use(express.json());
+
+app.get(
+  '/post/:id',
+  authToken,
+  blogPostController.getById,
+);
+
+app.post(
+  '/post',
+  authToken,
+  validBlogPost, 
+  blogPostController.create,
+);
 
 app.get(
   '/categories',
@@ -56,9 +71,14 @@ app.post(
 );
 
 app.use((err, _req, res, _next) => {
+  if (err.status) {
+    res
+      .status(err.status)
+      .json({ message: err.message });
+  }
   res
-    .status(err.status)
-    .json({ message: err.message });
+  .status(500)
+  .json({ message: err.message });
 });
 
 // ...

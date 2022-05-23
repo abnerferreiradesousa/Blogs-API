@@ -2,7 +2,7 @@ const { User } = require('../database/models');
 const errorMessage = require('../utils/errorMessage');
 const generateJWT = require('../utils/generateJWT');
 
-// const getUserByEmail = async (email) => User.findOne({ where: { email } });
+const getUserByEmail = async (email) => User.findOne({ where: { email } });
 
 const login = async (email, password) => {
   const user = await User.findOne({ where: { email } });
@@ -41,6 +41,7 @@ const getById = async (id) => {
 };
 
 module.exports = {
+  getUserByEmail,
   create,
   login,
   getAll,
