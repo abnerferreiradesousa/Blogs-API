@@ -3,13 +3,9 @@ const userService = require('../services/userService');
 const postCategoriesService = require('../services/postCategoriesService');
 const categoryService = require('../services/categoryService');
 
-const getAll = async (req, res, next) => {
-  try {
+const getAll = async (req, res) => {
     const blogPosts = await blogPostService.getAll();
     return res.status(200).json(blogPosts);
-  } catch (error) {
-    next(error);
-  }
 };
 
 const getById = async (req, res, next) => {

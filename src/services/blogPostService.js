@@ -1,4 +1,5 @@
 const { BlogPost, User, Category } = require('../database/models');
+// const userService = require('./userService');
 const errorMessage = require('../utils/errorMessage');
 
 const getAll = async () => {
