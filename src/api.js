@@ -1,10 +1,12 @@
 const express = require('express');
 const userController = require('./controllers/userController');
+const categoryController = require('./controllers/categoryController');
 const { 
   validDisplayName, 
-  validEmail, 
   validPassword, 
-} = require('./middlewares/validationsMiddleware;');
+  validEmail,
+  validName,
+} = require('./middlewares/validationsMiddleware');
 const authToken = require('./middlewares/authTokenMiddleware');
 
 // ...
@@ -12,6 +14,13 @@ const authToken = require('./middlewares/authTokenMiddleware');
 const app = express();
 
 app.use(express.json());
+
+app.post(
+  '/categories',
+  authToken,
+  validName,
+  categoryController.create,
+);
 
 app.get(
   '/user/:id',
