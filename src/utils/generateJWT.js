@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 // const senha = 'hulkEsmaga';
 
 const jwtConfig = { // header
-  expiresIn: '15m',
+  // expiresIn: '15m',
   algorithm: 'HS256',
 };
 

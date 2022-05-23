@@ -2,6 +2,8 @@ const { User } = require('../database/models');
 const errorMessage = require('../utils/errorMessage');
 const generateJWT = require('../utils/generateJWT');
 
+// const getUserByEmail = async (email) => User.findOne({ where: { email } });
+
 const login = async (email, password) => {
   const user = await User.findOne({ where: { email } });
   if (!user || user.password !== password) {
@@ -21,7 +23,16 @@ const create = async ({ displayName, email, password, image }) => {
   return token;
 };
 
+const getAll = async () => {
+  const users = await User.findAll({
+    attributes: { exclude: ['password'] },
+  });
+  console.log(users);
+  return users;
+};
+
 module.exports = {
   create,
   login,
+  getAll,
 };
