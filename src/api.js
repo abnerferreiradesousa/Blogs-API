@@ -15,6 +15,12 @@ const app = express();
 
 app.use(express.json());
 
+app.get(
+  '/categories',
+  authToken, 
+  categoryController.getAll,
+);
+
 app.post(
   '/categories',
   authToken,
