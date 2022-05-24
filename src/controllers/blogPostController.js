@@ -39,8 +39,21 @@ const create = async (req, res, next) => {
   }
 };
 
+const remove = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { user } = req; 
+    await blogPostService.remove(id, user);
+    console.log('passei aqui 1 ');
+    return res.status(204).end();
+  } catch (error) {
+    next(error);    
+  }
+};
+
 module.exports = {
   create,
   getById,
   getAll,
+  remove,
 };

@@ -35,7 +35,6 @@ const getById = async (id) => {
     where: { id },
     attributes: { exclude: ['password'] },
  });
-  console.log(user);
   if (!user) throw errorMessage(404, 'User does not exist');
   return user;
 };
