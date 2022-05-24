@@ -44,7 +44,6 @@ const remove = async (req, res, next) => {
     const { id } = req.params;
     const { user } = req; 
     await blogPostService.remove(id, user);
-    console.log('passei aqui 1 ');
     return res.status(204).end();
   } catch (error) {
     next(error);    

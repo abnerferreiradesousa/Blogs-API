@@ -103,7 +103,6 @@ app.post(
 );
 
 app.use((err, _req, res, _next) => {
-  console.log(err);
   if (err.status) {
     res
       .status(err.status)
