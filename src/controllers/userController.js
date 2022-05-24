@@ -48,10 +48,10 @@ const getById = async (req, res, next) => {
 
 const remove = async (req, res, next) => {
   try {
-    const data = await userService.remove(req.user);
+    await userService.remove(req.user);
     return res
       .status(204)
-      .json({ data });
+      .end();
   } catch (error) {
     next(error);
   }
