@@ -19,8 +19,9 @@ const app = express();
 app.use(express.json());
 
 app.get(
-  '/post/search?q=:searchTerm',
+  '/post/search',
   authToken,
+  blogPostController.getByTerm,
 );
 
 app.delete(

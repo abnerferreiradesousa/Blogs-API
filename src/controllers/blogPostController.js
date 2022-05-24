@@ -51,9 +51,20 @@ const remove = async (req, res, next) => {
   }
 };
 
+const getByTerm = async (req, res, next) => {
+  try {
+    const { q } = req.query;
+    const posts = await blogPostService.getByTerm(q);
+    return res.status(200).json(posts);
+  } catch (error) {
+    next(error);    
+  }
+};
+
 module.exports = {
   create,
   getById,
   getAll,
   remove,
+  getByTerm,
 };
