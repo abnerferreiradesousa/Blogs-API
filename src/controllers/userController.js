@@ -46,9 +46,21 @@ const getById = async (req, res, next) => {
   }
 };
 
+const remove = async (req, res, next) => {
+  try {
+    const data = await userService.remove(req.user);
+    return res
+      .status(204)
+      .json({ data });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   create,
   login,
   getAll,
   getById,
+  remove,
 };

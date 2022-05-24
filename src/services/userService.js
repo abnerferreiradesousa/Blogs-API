@@ -1,6 +1,7 @@
 const { User } = require('../database/models');
 const errorMessage = require('../utils/errorMessage');
 const generateJWT = require('../utils/generateJWT');
+const blogPostService = require('./blogPostService');
 
 const getUserByEmail = async (email) => User.findOne({ where: { email } });
 
@@ -39,10 +40,18 @@ const getById = async (id) => {
   return user;
 };
 
+const remove = async (user) => {
+  const { dataValues: { id } } = await getUserByEmail(user.data.email);
+  await blogPostService.removeByUserId(id);
+  const resitl = await User.destroy({ where: { id } });
+  console.log(resitl);
+};
+
 module.exports = {
   getUserByEmail,
   create,
   login,
   getAll,
   getById,
+  remove,
 };

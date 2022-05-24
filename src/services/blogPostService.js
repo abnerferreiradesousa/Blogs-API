@@ -49,9 +49,14 @@ const remove = async (id, user) => {
   await BlogPost.destroy({ where: { id } });
 };
 
+const removeByUserId = async (userId) => {
+  await BlogPost.destroy({ where: { userId } });
+};
+
 module.exports = {
   create,
   getById,
   getAll,
   remove,
+  removeByUserId,
 }; 

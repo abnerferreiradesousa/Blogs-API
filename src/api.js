@@ -19,6 +19,12 @@ const app = express();
 app.use(express.json());
 
 app.delete(
+  '/user/me',
+  authToken,
+  userController.remove,
+);
+
+app.delete(
   '/post/:id',
   authToken,
   blogPostController.remove,
@@ -92,7 +98,6 @@ app.post(
 
 app.use((err, _req, res, _next) => {
   if (err.status) {
-    console.log('passei aqui 3 ');
     res
       .status(err.status)
       .json({ message: err.message });
