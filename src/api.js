@@ -36,7 +36,6 @@ app.delete(
   blogPostController.remove,
 );
 
-// REQ 15
 app.put(
   '/post/:id',
   authToken,
