@@ -3,7 +3,7 @@ const userController = require('./controllers/userController');
 const categoryController = require('./controllers/categoryController');
 const blogPostController = require('./controllers/blogPostController');
 const { 
-  // validTitleAndContent,
+  validTitleAndContent,
   validDisplayName,
   validBlogPost,
   validPassword, 
@@ -36,12 +36,13 @@ app.delete(
   blogPostController.remove,
 );
 
-// app.put(
-//   '/post/:id',
-//   authToken,
-//   validTitleAndContent,
-//   blogPostController.update,
-// );
+// REQ 15
+app.put(
+  '/post/:id',
+  authToken,
+  validTitleAndContent,
+  blogPostController.update,
+);
 
 app.get(
   '/post/:id',
@@ -103,6 +104,7 @@ app.post(
 );
 
 app.use((err, _req, res, _next) => {
+  console.log(err);
   if (err.status) {
     res
       .status(err.status)

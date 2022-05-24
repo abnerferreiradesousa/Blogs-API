@@ -61,10 +61,20 @@ const getByTerm = async (req, res, next) => {
   }
 };
 
+const update = async (req, res, next) => {
+  try {
+    const updatedPost = await blogPostService.update(req.user, req.params, req.body);
+    return res.status(200).json(updatedPost);
+  } catch (error) {
+    next(error);   
+  }
+};
+
 module.exports = {
   create,
   getById,
   getAll,
   remove,
   getByTerm,
+  update,
 };

@@ -50,12 +50,9 @@ const remove = async (id, user) => {
   await BlogPost.destroy({ where: { id } });
 };
 
-const removeByUserId = async (userId) => {
-  await BlogPost.destroy({ where: { userId } });
-};
+const removeByUserId = async (userId) => BlogPost.destroy({ where: { userId } });
 
 const getByTerm = async (term) => {
-  console.log(term);
   const postsFounded = await BlogPost.findAll({
     where: {
       [Op.or]: [
@@ -70,11 +67,23 @@ const getByTerm = async (term) => {
   return postsFounded.length ? postsFounded : [];
 };
 
+const update = async (user, { id }, { title, content }) => {
+  const postFounded = await checkPostExists(id);
+  await findUserOwnerPost(user, postFounded);
+  await BlogPost.update(
+    { title, content },
+    { where: { id } },
+  );
+  const updatedPost = await getById(id);
+  return updatedPost;
+};
+
 module.exports = {
+  update,
   create,
-  getById,
   getAll,
   remove,
-  removeByUserId,
+  getById,
   getByTerm,
+  removeByUserId,
 }; 
