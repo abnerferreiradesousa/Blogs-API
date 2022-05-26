@@ -2,6 +2,7 @@ const express = require('express');
 const userController = require('./controllers/userController');
 const categoryController = require('./controllers/categoryController');
 const blogPostController = require('./controllers/blogPostController');
+const { INTERNAL_SERVER_ERROR } = require('./utils/statusCode');
 const { 
   validTitleAndContent,
   validDisplayName,
@@ -13,6 +14,12 @@ const {
 const authToken = require('./middlewares/authTokenMiddleware');
 
 // ...
+// MELHORIAS
+
+// ROUTES FILE
+// transactions
+// testes de integração
+// rescue
 
 const app = express();
 
@@ -104,12 +111,12 @@ app.post(
 
 app.use((err, _req, res, _next) => {
   if (err.status) {
-    res
+    return res
       .status(err.status)
       .json({ message: err.message });
   }
   res
-    .status(500)
+    .status(INTERNAL_SERVER_ERROR)
     .json({ message: err.message });
 });
 

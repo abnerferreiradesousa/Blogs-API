@@ -2,17 +2,18 @@ const blogPostService = require('../services/blogPostService');
 const userService = require('../services/userService');
 const postCategoriesService = require('../services/postCategoriesService');
 const categoryService = require('../services/categoryService');
+const { OK_STATUS, CREATED, NO_CONTENT } = require('../utils/statusCode');
 
 const getAll = async (req, res) => {
     const blogPosts = await blogPostService.getAll();
-    return res.status(200).json(blogPosts);
+    return res.status(OK_STATUS).json(blogPosts);
 };
 
 const getById = async (req, res, next) => {
   try {
     const { id } = req.params;
     const post = await blogPostService.getById(id);
-    return res.status(200).json(post);
+    return res.status(OK_STATUS).json(post);
   } catch (error) {
     next(error);    
   }
@@ -32,19 +33,30 @@ const create = async (req, res, next) => {
     const created = categoryIds
       .map((categoryId) => postCategoriesService.create(postId, categoryId));
     await Promise.all(created);
-    return res.status(201).json(createdPost);
+    return res.status(CREATED).json(createdPost);
     }
   } catch (error) {
     next(error);    
   }
 };
 
+const update = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { email } = req.user.data;
+    const updatedPost = await blogPostService.update(email, id, req.body);
+    return res.status(OK_STATUS).json(updatedPost);
+  } catch (error) {
+    next(error);   
+  }
+};
+
 const remove = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const { user } = req; 
-    await blogPostService.remove(id, user);
-    return res.status(204).end();
+    const { email } = req.user.data; 
+    await blogPostService.remove(id, email);
+    return res.status(NO_CONTENT).end();
   } catch (error) {
     next(error);    
   }
@@ -54,18 +66,9 @@ const getByTerm = async (req, res, next) => {
   try {
     const { q } = req.query;
     const posts = await blogPostService.getByTerm(q);
-    return res.status(200).json(posts);
+    return res.status(OK_STATUS).json(posts);
   } catch (error) {
     next(error);    
-  }
-};
-
-const update = async (req, res, next) => {
-  try {
-    const updatedPost = await blogPostService.update(req.user, req.params, req.body);
-    return res.status(200).json(updatedPost);
-  } catch (error) {
-    next(error);   
   }
 };
 

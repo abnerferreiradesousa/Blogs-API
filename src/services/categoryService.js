@@ -1,9 +1,11 @@
 const { Category } = require('../database/models');
 const errorMessage = require('../utils/errorMessage');
+const { CATEGORY_IDS_NOT_FOUND } = require('../utils/messagesErrorText');
+const { BAD_REQUEST } = require('../utils/statusCode');
 
 const getById = async (id) => {
   const category = await Category.findOne({ where: { id } });
-  if (!category) throw errorMessage(400, '"categoryIds" not found');
+  if (!category) throw errorMessage(BAD_REQUEST, CATEGORY_IDS_NOT_FOUND);
   return category;
 };
 

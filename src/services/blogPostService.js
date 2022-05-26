@@ -1,8 +1,13 @@
 const { Op } = require('sequelize');
 const { BlogPost, User, Category } = require('../database/models');
-const postCategoriesService = require('./postCategoriesService');
 const userService = require('./userService');
 const errorMessage = require('../utils/errorMessage');
+const { NOT_FOUND, UNAUTHORIZED } = require('../utils/statusCode');
+const {
+  POST_NOT_EXISTS,
+  USER_NOT_FOUND,
+  UNAUTHORIZED_USER,
+} = require('../utils/messagesErrorText');
 
 const getAll = async () => {
   const blogPosts = await BlogPost.findAll({
@@ -20,37 +25,46 @@ const getById = async (id) => {
       { model: User, as: 'user', attributes: { exclude: ['password'] } },
       { model: Category, as: 'categories', through: { attributes: [] } },
     ] });
-  if (!post) throw errorMessage(404, 'Post does not exist');
+  if (!post) throw errorMessage(NOT_FOUND, POST_NOT_EXISTS);
   return post;
 };
 
 const create = async (newPost, user) => {
-  if (!user) throw errorMessage(404, 'User not found');
+  if (!user) throw errorMessage(NOT_FOUND, USER_NOT_FOUND);
   const createdPost = await BlogPost.create({ ...newPost, userId: user.id });
   return createdPost.dataValues;
 };
 
-const findUserOwnerPost = async ({ data: { email } }, { userId }) => {
+const findUserOwnerPost = async (email, userId) => {
 const { id } = await userService.getUserByEmail(email);
   if (!id || id !== userId) {
-    throw errorMessage(401, 'Unauthorized user');
+    throw errorMessage(UNAUTHORIZED, UNAUTHORIZED_USER);
   }  
 };
 
 const checkPostExists = async (id) => {
   const postFounded = await BlogPost.findOne({ where: { id } });
-  if (!postFounded) throw errorMessage(404, 'Post does not exist');
+  if (!postFounded) throw errorMessage(NOT_FOUND, POST_NOT_EXISTS);
   return postFounded;
 };
 
-const remove = async (id, user) => {
-  const postFounded = await checkPostExists(id);
-  await findUserOwnerPost(user, postFounded);
-  await postCategoriesService.remove(id);
-  await BlogPost.destroy({ where: { id } });
+const update = async (email, id, { title, content }) => {
+  const { userId } = await checkPostExists(id);
+  await findUserOwnerPost(email, userId);
+  await BlogPost.update(
+    { title, content },
+    { where: { id } },
+  );
+  const updatedPost = await getById(id);
+  return updatedPost;
 };
 
-const removeByUserId = async (userId) => BlogPost.destroy({ where: { userId } });
+const remove = async (id, email) => {
+  // Teria como usar promise.all?
+  const { userId } = await checkPostExists(id);
+  await findUserOwnerPost(email, userId);
+  await BlogPost.destroy({ where: { id } });
+};
 
 const getByTerm = async (term) => {
   const postsFounded = await BlogPost.findAll({
@@ -67,17 +81,6 @@ const getByTerm = async (term) => {
   return postsFounded.length ? postsFounded : [];
 };
 
-const update = async (user, { id }, { title, content }) => {
-  const postFounded = await checkPostExists(id);
-  await findUserOwnerPost(user, postFounded);
-  await BlogPost.update(
-    { title, content },
-    { where: { id } },
-  );
-  const updatedPost = await getById(id);
-  return updatedPost;
-};
-
 module.exports = {
   update,
   create,
@@ -85,5 +88,4 @@ module.exports = {
   remove,
   getById,
   getByTerm,
-  removeByUserId,
 }; 
