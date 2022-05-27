@@ -1,12 +1,12 @@
 const { User } = require('../database/models');
 const errorMessage = require('../utils/errorMessage');
 const generateJWT = require('../utils/generateJWT');
+const { BAD_REQUEST, CONFLICT, NOT_FOUND } = require('../utils/statusCode');
 const { 
   INVALID_FIELDS, 
   USER_ALREADY_REGISTERED,
   USER_NOT_EXISTS, 
 } = require('../utils/messagesErrorText');
-const { BAD_REQUEST, CONFLICT, NOT_FOUND } = require('../utils/statusCode');
 
 const getUserByEmail = async (email) => User.findOne({ where: { email } });
 

@@ -49,12 +49,11 @@ const checkPostExists = async (id) => {
 };
 
 const update = async (email, id, { title, content }) => {
-  const { userId } = await checkPostExists(id);
-  await findUserOwnerPost(email, userId);
-  await BlogPost.update(
-    { title, content },
-    { where: { id } },
-  );
+  const { userId } = checkPostExists(id);
+  await Promise.all([
+    findUserOwnerPost(email, userId),
+    BlogPost.update({ title, content }, { where: { id } }),
+  ]);
   const updatedPost = await getById(id);
   return updatedPost;
 };
@@ -62,8 +61,10 @@ const update = async (email, id, { title, content }) => {
 const remove = async (id, email) => {
   // Teria como usar promise.all?
   const { userId } = await checkPostExists(id);
-  await findUserOwnerPost(email, userId);
-  await BlogPost.destroy({ where: { id } });
+  await Promise.all([
+    findUserOwnerPost(email, userId),
+    BlogPost.destroy({ where: { id } }),
+  ]);
 };
 
 const getByTerm = async (term) => {
