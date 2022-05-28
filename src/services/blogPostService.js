@@ -1,6 +1,8 @@
 const { Op } = require('sequelize');
 const { BlogPost, User, Category } = require('../database/models');
 const userService = require('./userService');
+const categoryService = require('./categoryService');
+const postCategoriesService = require('./postCategoriesService');
 const errorMessage = require('../utils/errorMessage');
 const { NOT_FOUND, UNAUTHORIZED } = require('../utils/statusCode');
 const {
@@ -29,10 +31,34 @@ const getById = async (id) => {
   return post;
 };
 
-const create = async (newPost, user) => {
-  if (!user) throw errorMessage(NOT_FOUND, USER_NOT_FOUND);
-  const createdPost = await BlogPost.create({ ...newPost, userId: user.id });
-  return createdPost.dataValues;
+// const create = async (newPost, user) => {
+//   if (!user) throw errorMessage(NOT_FOUND, USER_NOT_FOUND);
+//   const createdPost = await BlogPost.create({ ...newPost, userId: user.id });
+//   return createdPost.dataValues;
+// };
+
+const categoryExists = async (categoryIds) => {
+  const categoryIdFounded = categoryIds
+    .map((categoryId) => categoryService.getById(categoryId));
+  await Promise.all(categoryIdFounded);
+};
+
+const userExists = async (email) => {
+  const { id } = await userService.getUserByEmail(email);
+  if (!id) throw errorMessage(NOT_FOUND, USER_NOT_FOUND);
+  return id;
+};
+
+const create = async (email, newPost) => {
+  const { categoryIds, ...postOutCategoryIds } = newPost;
+  const userId = await userExists(email);
+  await categoryExists(categoryIds);
+  const createdPost = await BlogPost.create({ userId, ...postOutCategoryIds });
+  const { id: postId } = createdPost;
+  const createdPostCategory = categoryIds
+    .map((categoryId) => postCategoriesService.create(postId, categoryId));
+  await Promise.all([createdPostCategory]);
+  return createdPost;
 };
 
 const findUserOwnerPost = async (email, userId) => {
@@ -49,7 +75,7 @@ const checkPostExists = async (id) => {
 };
 
 const update = async (email, id, { title, content }) => {
-  const { userId } = checkPostExists(id);
+  const { userId } = await checkPostExists(id);
   await Promise.all([
     findUserOwnerPost(email, userId),
     BlogPost.update({ title, content }, { where: { id } }),
@@ -59,7 +85,6 @@ const update = async (email, id, { title, content }) => {
 };
 
 const remove = async (id, email) => {
-  // Teria como usar promise.all?
   const { userId } = await checkPostExists(id);
   await Promise.all([
     findUserOwnerPost(email, userId),
