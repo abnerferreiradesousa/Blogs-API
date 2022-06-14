@@ -3,7 +3,7 @@
 ## COMO RODAR A APLICAÇÃO
 
 1. Clone o repositório
-  * `git clone git@github.com:tryber/sd-017-project-trybewallet.git`
+  * `git clone git@github.com:abnerferreiradesousa/blogs-API.git`
   * Entre na pasta do repositório que você acabou de clonar:
     * `cd sd-017-project-trybewallet`
  
