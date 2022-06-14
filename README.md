@@ -1,23 +1,21 @@
 # Boas-vindas ao repositório do projeto API de Blogs!
 
-Para realizar o projeto, atente-se a cada passo descrito a seguir, e se tiver qualquer dúvida, nos envie por _Slack_! #vqv 🚀
+## COMO RODAR A APLICAÇÃO
 
-Aqui você vai encontrar os detalhes de como estruturar o desenvolvimento do seu projeto a partir deste repositório, utilizando uma branch específica e um _Pull Request_ para colocar seus códigos.
-
-<br />
-
+1. Clone o repositório
+  * `git clone git@github.com:tryber/sd-017-project-trybewallet.git`
+  * Entre na pasta do repositório que você acabou de clonar:
+    * `cd sd-017-project-trybewallet`
+ 
+2. Instale as dependências e inicialize o projeto
+  * Instale as dependências:
+    * `npm install`
+  * Inicialize o projeto:
+    * `npm start` (uma nova página deve abrir no seu navegador com um texto simples)
+  * Caso queira rodar os testes pode usar o comando abaixo:
+    * `npm test`(Obs.: talvez apareça uma tela com uma messagem: "tests not found", se aparecer, tecle `a` e todos os testes serão rodados)
 
 # Entregáveis
-
-<details>
-  <summary><strong>🤷🏽‍♀️ Como entregar</strong></summary>
-
-  Para entregar o seu projeto você deverá criar um *Pull Request* neste repositório.
-
-  Lembre-se que você pode consultar nosso conteúdo sobre [Git & GitHub](https://app.betrybe.com/course/4d67f5b4-34a6-489f-a205-b6c7dc50fc16/) e nosso [Blog - Git & GitHub](https://blog.betrybe.com/tecnologia/git-e-github/) sempre que precisar!
-
-<br />
-</details>
 
 <details>
   <summary><strong>👨‍💻 O que deverá ser desenvolvido</strong></summary>
