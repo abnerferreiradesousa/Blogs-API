@@ -18,7 +18,7 @@
 # Entregue
 
 <details>
-  <summary><strong>👨‍💻 O que desenvolvi</strong></summary>
+  <summary><strong>👨‍💻 O que desenvolvi?</strong></summary>
 
   Neste projeto desenvolvi uma API e um banco de dados para a produção de conteúdo para um blog! 
 
@@ -29,3 +29,5 @@
   2. Para fazer um post foi necessário usuário e login, portanto será trabalhada a **relação entre** `user` e `post`; 
 
   3. Foi necessária a utilização de categorias para os posts, trabalhando, assim, a **relação de** `posts` para `categories` e de `categories` para `posts`.
+ 
+ </details>
