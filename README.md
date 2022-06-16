@@ -37,7 +37,7 @@
 
 Ps.: Se qualquer informção for inválida for passada na requisição, será retornado um status e um erro descrevendo o problema.
 
-## Rota para realizar login POST `/login`
+## 1 - Rota para realizar login POST `/login`
 
 - O corpo da requisição deverá seguir o formato abaixo:
   ```json
@@ -49,7 +49,7 @@ Ps.: Se qualquer informção for inválida for passada na requisição, será re
   - Caso o login seja realizado com sucesso é retornado um token;
 
 
-## Adiciona um novo usuário ao bando de dados POST `/user`
+## 2 - Adiciona um novo usuário ao bando de dados POST `/user`
 
 - O endpoint deve ser capaz de adicionar um novo `user` a sua tabela no banco de dados;
 - O corpo da requisição deverá seguir o formato abaixo:
@@ -66,16 +66,16 @@ Ps.: Se qualquer informção for inválida for passada na requisição, será re
 ## Obs.: A partir daqui para utilizar as rotas é nescessário se cadastrar e efetuar login afim de recerber o token e passá-lo no headers da requisição.
 
 
-## Busca todos os usuários GET `/user`
+## 3 - Busca todos os usuários GET `/user`
 
 - O endpoint deve ser capaz de trazer todos `users` do banco de dados;
 
-## Busca o usuário por id GET `/user/:id`
+## 4 - Busca o usuário por id GET `/user/:id`
 
 - O endpoint deve ser capaz de trazer o `user` baseado no `id` do banco de dados se ele existir;
 
 
-## Adiciona novas categorias POST `/categories`
+## 5 - Adiciona novas categorias POST `/categories`
 
 - O endpoint deve ser capaz de adicionar uma nova categoria a sua tabela no banco de dados;
 - O corpo da requisição deverá seguir o formato abaixo:
@@ -85,13 +85,13 @@ Ps.: Se qualquer informção for inválida for passada na requisição, será re
   }
   ```
 
-## Busca todas as categorias GET `/categories`
+## 6 - Busca todas as categorias GET `/categories`
 
 - O endpoint deve ser capaz de trazer todas categorias do banco de dados;
 
 ---
 
-## Rota para criar novo post POST `/post`
+## 7 - Rota para criar novo post POST `/post`
 
 - O endpoint deve ser capaz de adicionar um novo blog post e vinculá-lo as categorias em suas tabelas no banco de dados;
 - O corpo da requisição deverá seguir o formato abaixo:
@@ -105,18 +105,18 @@ Ps.: Se qualquer informção for inválida for passada na requisição, será re
 
 ---
 
-## Busca todos os posts e o respectivo proprietário GET `/post`
+## 8 - Busca todos os posts e o respectivo proprietário GET `/post`
 
 - O endpoint deve ser capaz de trazer todos os blogs post, user dono dele e as categorias do banco de dados;
 
 
-## Busca post pelo id GET `/post/:id`
+## 9 - Busca post pelo id GET `/post/:id`
 
 - O endpoint deve ser capaz de trazer o blog post baseado no `id` do banco de dados se ele existir;
 
 ---
 
-## Atualiza um post t PUT `/post/:id`
+## 10 - Atualiza um post t PUT `/post/:id`
 
 - O endpoint deve ser capaz de alterar um post do banco de dados se ele existir;
 - Sua aplicação só deve permitir a alteração de um blog post caso a pessoa seja dona dele;
@@ -130,21 +130,21 @@ Ps.: Se qualquer informção for inválida for passada na requisição, será re
   ```
 ---
 
-## Deletar um post DELETE `/post/:id`
+## 11 - Deletar um post DELETE `/post/:id`
 
 - O endpoint deve ser capaz de deletar um blog post baseado no `id` do banco de dados se ele existir;
 - Só é permitida a deleção de um blog post caso a pessoa seja dona dele;
 
 ---
 
-## Delete o usuário atual DELETE `/user/me`
+## 12 - Delete o usuário atual DELETE `/user/me`
 
 - O endpoint deve ser capaz de deletar você do banco de dados, baseado no `id` que esta dentro do seu `token`;
 - Sua aplicação deve ser capaz de utilizar o token de autenticação nos headers, para saber o user logado correspondente á ser apagado;
 
 ---
 
-## Busca posts pelo seu conteúdo GET `/post/search?q=:searchTerm`
+## 13 - Busca posts pelo seu conteúdo GET `/post/search?q=:searchTerm`
 
 - O endpoint deve ser capaz de trazer os blogs post baseados no `q` do banco de dados, se ele existir;
 - O query params da requisição deverá seguir o formato abaixo:
