@@ -37,6 +37,8 @@
 
 Ps.: Se qualquer informção for inválida for passada na requisição, será retornado um status e um erro descrevendo o problema.
 
+Dica: já algumas sugestões de como realizar suas resquisições em cada rota.
+
 ## 1 - Rota para realizar login POST `/login`
 
 - O corpo da requisição deverá seguir o formato abaixo:
