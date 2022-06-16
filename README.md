@@ -62,7 +62,10 @@ Ps.: Se qualquer informção for inválida for passada na requisição, será re
   }
   ```
 
-# A partir daqui para utilizar as rotas é nescessário se cadastrar e efetuar login afim de recerber o token e passá-lo no headers da requisição.
+
+## A partir daqui para utilizar as rotas é nescessário se cadastrar e efetuar login afim de recerber o token e passá-lo no headers da requisição.
+
+
 
 ## Busca todos os usuários GET `/user`
 
