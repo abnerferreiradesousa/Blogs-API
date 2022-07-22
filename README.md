@@ -16,7 +16,7 @@
     * `npm test`(Obs.: talvez apareça uma tela com uma messagem: "tests not found", se aparecer, tecle `a` e todos os testes serão rodados)
 
 # Entregue
-
+https://github.com/abnerferreiradesousa/blogs-API
 <details>
   <summary><strong>👨‍💻 O que desenvolvi?</strong></summary>
 
@@ -51,7 +51,7 @@ Dica: já algumas sugestões de como realizar suas resquisições em cada rota.
   - Caso o login seja realizado com sucesso é retornado um token;
 
 
-## 2 - Adiciona um novo usuário ao bando de dados POST `/user`
+## 2 - Adiciona um novo usuário ao banco de dados POST `/user`
 
 - O endpoint deve ser capaz de adicionar um novo `user` a sua tabela no banco de dados;
 - O corpo da requisição deverá seguir o formato abaixo:
