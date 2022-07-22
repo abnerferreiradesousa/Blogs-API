@@ -16,7 +16,7 @@
     * `npm test`(Obs.: talvez apareça uma tela com uma messagem: "tests not found", se aparecer, tecle `a` e todos os testes serão rodados)
 
 # Entregue
-https://github.com/abnerferreiradesousa/blogs-API
+
 <details>
   <summary><strong>👨‍💻 O que desenvolvi?</strong></summary>
 
